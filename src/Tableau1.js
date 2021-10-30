@@ -82,6 +82,7 @@ class Tableau1 extends Phaser.Scene{
 
         let bg2Tree2=this.add.image(350,-50,'bg2-tree-2').setOrigin(0,0);
         bg2Tree2.scale=0.55
+        this.bg2Container.add(bg2Tree2);
 
         //--------------background 1 (gris) --------------------
 
