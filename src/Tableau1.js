@@ -20,16 +20,21 @@ class Tableau1 extends Phaser.Scene{
         this.load.image('bg1-tree-1', 'assets/level/background-1/bg-tree-1.png');
         this.load.image('bg1-tree-2', 'assets/level/background-1/bg-tree-2.png');
         this.load.image('bg1-tree-3', 'assets/level/background-1/bg-tree-3.png');
+        this.load.image('bg1-stone-5', 'assets/level/background-1/bg-stone-5.png');
+        this.load.image('bg1-grass-4','assets/level/background-1/bg-grass-4.png');
 
         //ground (premier plan noir)
         this.load.image('gMid', 'assets/level/ground/g-mid.png');
         this.load.image('gRight', 'assets/level/ground/g-right.png');
-       // this.load.image('gTree1', 'assets/level/ground/g-tree-2.png');
+        this.load.image('gTree1', 'assets/level/ground/g-tree-2.png');
+        for (let j=1;j<=5;j++) {
+            this.load.image('g-grass-'+j, 'assets/level/ground/g-grass-'+j+'.png');
+        }
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
         // ALGO : ceci est une boucle
-        for(let i=1;i<=5;i++){
-            this.load.image('g-grass-'+i, 'assets/level/ground/g-grass-'+i+'.png');
+        for(let i=1;i<=2;i++){
+            this.load.image('g-spike-'+i, 'assets/level/ground/g-spike-'+i+'.png');
         }
 
         //filtre film TODO élève : faire une boucle à la place des 3 lignes qui suivent
@@ -67,6 +72,11 @@ class Tableau1 extends Phaser.Scene{
          * Terrain dans bg2
          * @type {Phaser.GameObjects.Image}
          */
+        let bg2Terrain1=this.add.image( 650, 80, 'bg2-terrain-1').setOrigin( 0, 0);
+        bg2Terrain1.scale=1
+        this.bg2Container.add(bg2Terrain1);
+
+
         let bg2Terrain2=this.add.image(-270,80, 'bg2-terrain-2').setOrigin(0,0);
         bg2Terrain2.scaleX=1.15
         bg2Terrain2.scaleX=1.10
@@ -84,6 +94,13 @@ class Tableau1 extends Phaser.Scene{
         bg2Tree2.scale=0.55
         this.bg2Container.add(bg2Tree2);
 
+        let bg2Tree3=this.add.image(670,-30,'bg2-tree-3').setOrigin(0,0);
+        bg2Tree3.scale=0.7
+        this.bg2Container.add(bg2Tree3);
+        bg2Tree3.angle=-10;
+
+
+
         //--------------background 1 (gris) --------------------
 
         /**
@@ -95,8 +112,21 @@ class Tableau1 extends Phaser.Scene{
          * Terrain
          * @type {Phaser.GameObjects.Image}
          */
-        let bg1Terrain3=this.add.image(-300,200, 'bg1-terrain-3').setOrigin(0,0);
+        let bg1Terrain1=this.add.image(700,300, 'bg1-terrain-1').setOrigin(0,0);
+        bg1Terrain1.scale=0.5
+        this.bg1Container.add(bg1Terrain1);
+
+        let bg1Terrain3=this.add.image(-450,200, 'bg1-terrain-3').setOrigin(0,0);
         this.bg1Container.add(bg1Terrain3);
+
+        let bg1Stone5=this.add.image(600,460, 'bg1-stone-5').setOrigin(0,0);
+        bg1Stone5.scaleX=2.5
+        bg1Stone5.scaleY=2
+        this.bg1Container.add(bg1Stone5);
+
+        let bg1Grass4=this.add.image(600,400, 'bg1-grass-4').setOrigin(0,0);
+        bg1Grass4.scale=2
+        this.bg1Container.add(bg1Grass4);
 
         //-------------ground (premier plan noir)---------------------------
 
@@ -109,9 +139,9 @@ class Tableau1 extends Phaser.Scene{
          * Arbre
          * @type {Phaser.GameObjects.Image}
          */
-        let tree1=this.add.image(300,350, 'gTree1').setOrigin(0,1);
-        tree1.setTintFill(0xFF0000); // pratique pour dbugger
-        this.groundContainer.add(tree1);
+        // let tree1=this.add.image(300,350, 'gTree1').setOrigin(0,1);
+        // tree1.setTintFill(0xFF0000); // pratique pour dbugger
+        // this.groundContainer.add(tree1);
         /**
          * Terrain 1
          * @type {Phaser.GameObjects.Image}
@@ -119,30 +149,47 @@ class Tableau1 extends Phaser.Scene{
         //ici on va calculer les positions
         let gMid1=this.add.image(0,350, 'gMid').setOrigin(0,0);
         this.groundContainer.add(gMid1);
-        /**
-         * Terrain 2
-         * @type {Phaser.GameObjects.Image}
-         */
-        let gMid2=this.add.image(gMid1.x+gMid1.width,350, 'gMid').setOrigin(0,0); //on rajoute 1 px pour l'exemple
-        this.groundContainer.add(gMid2);
+        gMid1.scaleY=2;
+
         /**
          * Terrain 3
          * @type {Phaser.GameObjects.Image}
          */
-        let gMid3=this.add.image(gMid2.x+gMid2.width,355, 'gRight').setOrigin(0,0);
+        let gMid3=this.add.image(gMid1.x+gMid1.width,355, 'gRight').setOrigin(0,0);
         this.groundContainer.add(gMid3);
+        gMid3.scaleX=1.2;
+        /**
+         * De l'herbe qui ne se répète pas
+         *  @type {Phaser.GameObjects.Image}
+         */
+
+        let gGrass1=this.add.image(390,310, 'g-grass-1').setOrigin(0,0);
+        this.groundContainer.add(gGrass1);
+
+        let gGrass2=this.add.image(390,310, 'g-grass-2').setOrigin(0,0);
+        this.groundContainer.add(gGrass2);
+
+        let gGrass3=this.add.image(390,310, 'g-grass-3').setOrigin(0,0);
+        this.groundContainer.add(gGrass3);
+
+        let gGrass4=this.add.image(390,310, 'g-grass-4').setOrigin(0,0);
+        this.groundContainer.add(gGrass4);
+
+        let gGrass5=this.add.image(390,310, 'g-grass-5').setOrigin(0,0);
+        this.groundContainer.add(gGrass5);
+
         /**
          * De l'herbe en textures qui se répète
          * @type {Phaser.GameObjects.TileSprite}
          */
-        let grass=this.add.tileSprite(0,370,gMid3.x+gMid3.width-40,50,'g-grass-1').setOrigin(0,1)
-        this.groundContainer.add(grass);
+        // let spike=this.add.tileSprite(0,370,gMid3.x+gMid3.width,50,'g-spike-1').setOrigin(0,1)
+        // this.groundContainer.add(grass);
         /**
          * encore de l'herbe
          * @type {Phaser.GameObjects.TileSprite}
          */
-        let grass2=this.add.tileSprite(0,370,gMid3.x+gMid3.width-40,50,'g-grass-3').setOrigin(0,1)
-        this.groundContainer.add(grass2);
+        // let spike2=this.add.tileSprite(0,370,gMid3.x+gMid3.width,50,'g-spike-2').setOrigin(0,1)
+        // this.groundContainer.add(grass2);
         /**
          * filtre type film au premier plan
          * @type {Phaser.GameObjects.Sprite}
