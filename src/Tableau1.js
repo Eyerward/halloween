@@ -17,25 +17,33 @@ class Tableau1 extends Phaser.Scene{
         //bg 1 (gris légèrement flou)
         this.load.image('bg1-terrain-1', 'assets/level/background-1/bg-terrain-1.png');
         this.load.image('bg1-terrain-3', 'assets/level/background-1/bg-terrain-3.png');
-        this.load.image('bg1-tree-1', 'assets/level/background-1/bg-tree-1.png');
-        this.load.image('bg1-tree-2', 'assets/level/background-1/bg-tree-2.png');
-        this.load.image('bg1-tree-3', 'assets/level/background-1/bg-tree-3.png');
+        for(let h=1;h<=3;h++) {
+            this.load.image('bg1-tree-'+h, 'assets/level/background-1/bg-tree-'+h+'.png');
+        }
         this.load.image('bg1-stone-5', 'assets/level/background-1/bg-stone-5.png');
         this.load.image('bg1-grass-4','assets/level/background-1/bg-grass-4.png');
 
         //ground (premier plan noir)
+        this.load.image('gLeft', 'assets/level/ground/g-left.png');
         this.load.image('gMid', 'assets/level/ground/g-mid.png');
         this.load.image('gRight', 'assets/level/ground/g-right.png');
-        this.load.image('gTree1', 'assets/level/ground/g-tree-2.png');
+        this.load.image('gStone-2', 'assets/level/ground/g-stone-2.png');
+        this.load.image('gStone-4', 'assets/level/ground/g-stone-4.png');
+        this.load.image('gMush1','assets/level/ground/g-mushroom1.png');
+        this.load.image('gBridge','assets/level/ground/g-wooden-bridge.png');
+        this.load.image('gBox2')
+        for (let g=1;g<=3;g++){
+            this.load.image('g-tree-'+g,'assets/level/ground/g-tree-'+g+'.png')
+        }
         for (let j=1;j<=5;j++) {
             this.load.image('g-grass-'+j, 'assets/level/ground/g-grass-'+j+'.png');
         }
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
         // ALGO : ceci est une boucle
-        for(let i=1;i<=2;i++){
-            this.load.image('g-spike-'+i, 'assets/level/ground/g-spike-'+i+'.png');
-        }
+        //for(let i=1;i<=2;i++){
+        //    this.load.image('g-spike-'+i, 'assets/level/ground/g-spike-'+i+'.png');
+        //}
 
         //filtre film TODO élève : faire une boucle à la place des 3 lignes qui suivent
         this.load.image('filterFilm1', 'assets/level/filters/film/frame-1.png');
@@ -128,6 +136,20 @@ class Tableau1 extends Phaser.Scene{
         bg1Grass4.scale=2
         this.bg1Container.add(bg1Grass4);
 
+        let bg1Tree1=this.add.image(-30,-60,'bg1-tree-1').setOrigin(0,0);
+        bg1Tree1.scale=0.8
+        this.bg1Container.add(bg1Tree1);
+
+        let bg1Tree2=this.add.image(880,-80,'bg1-tree-2').setOrigin(0,0);
+        bg1Tree2.angle=2
+        bg1Tree2.flipX=true
+        bg1Tree2.scale=0.8
+        this.bg1Container.add(bg1Tree2);
+
+        let bg1Tree3=this.add.image(160,-100,'bg1-tree-3').setOrigin(0,0);
+        bg1Tree3.scale=0.7
+        this.bg1Container.add(bg1Tree3);
+
         //-------------ground (premier plan noir)---------------------------
 
         /**
@@ -152,12 +174,26 @@ class Tableau1 extends Phaser.Scene{
         gMid1.scaleY=2;
 
         /**
-         * Terrain 3
+         * Terrain 2
          * @type {Phaser.GameObjects.Image}
          */
-        let gMid3=this.add.image(gMid1.x+gMid1.width,355, 'gRight').setOrigin(0,0);
+        let gMid2=this.add.image(gMid1.x+gMid1.width,355, 'gRight').setOrigin(0,0);
+        this.groundContainer.add(gMid2);
+        gMid2.scaleX=1.2;
+
+        /**
+         * Terrain 3
+         */
+
+        let gLeft=this.add.image(750,360,'gLeft').setOrigin(0,0);
+        this.groundContainer.add(gLeft);
+
+        let gMid3=this.add.image(gLeft.x+gLeft.width,360,'gMid').setOrigin(0,0);
         this.groundContainer.add(gMid3);
-        gMid3.scaleX=1.2;
+
+        let gRight=this.add.image(gMid3.x+gMid3.width,360,'gRight').setOrigin(0,0);
+        this.groundContainer.add(gRight);
+
         /**
          * De l'herbe qui ne se répète pas
          *  @type {Phaser.GameObjects.Image}
@@ -166,30 +202,69 @@ class Tableau1 extends Phaser.Scene{
         let gGrass1=this.add.image(390,310, 'g-grass-1').setOrigin(0,0);
         this.groundContainer.add(gGrass1);
 
-        let gGrass2=this.add.image(390,310, 'g-grass-2').setOrigin(0,0);
+        let gGrass2=this.add.image(340,310, 'g-grass-2').setOrigin(0,0);
         this.groundContainer.add(gGrass2);
 
-        let gGrass3=this.add.image(390,310, 'g-grass-3').setOrigin(0,0);
+        let gGrass3=this.add.image(120,310, 'g-grass-3').setOrigin(0,0);
         this.groundContainer.add(gGrass3);
 
-        let gGrass4=this.add.image(390,310, 'g-grass-4').setOrigin(0,0);
+        let gGrass4=this.add.image(5,310, 'g-grass-4').setOrigin(0,0);
         this.groundContainer.add(gGrass4);
 
-        let gGrass5=this.add.image(390,310, 'g-grass-5').setOrigin(0,0);
+        let gGrass5=this.add.image(200,310, 'g-grass-5').setOrigin(0,0);
         this.groundContainer.add(gGrass5);
+
+        /**
+         * Nos Petits arbrounets
+         */
+
+        let gTree1t1=this.add.image(20,-150,'g-tree-2').setOrigin(0,0);
+        gTree1t1.flipX=true
+        this.groundContainer.add(gTree1t1);
+
+        let gTree2t1=this.add.image(270,-10,'g-tree-2').setOrigin(0,0);
+        gTree2t1.scale=0.7
+        this.groundContainer.add(gTree2t1);
+
+        let gTree1t2=this.add.image(740,-50,'g-tree-1').setOrigin(0,0);
+        gTree1t2.scaleY=1.2
+        gTree1t2.angle=-15
+        this.groundContainer.add(gTree1t2);
+
+        /**
+         * Cailloux, Caisses, Champis...
+         */
+
+        let gStone4t1=this.add.image(350,340,'gStone-4').setOrigin(0,0);
+        gStone4t1.scale=0.7
+        this.groundContainer.add(gStone4t1);
+
+        let gStone4t2=this.add.image(760,340,'gStone-4').setOrigin(0,0);
+        this.groundContainer.add(gStone4t2);
+
+        let gMush=this.add.image(150,280,'gMush1').setOrigin(0,0);
+        gMush.flipX=true
+        this.groundContainer.add(gMush);
+
+        let gBridge=this.add.image(400,295,'gBridge').setOrigin(0,0);
+        gBridge.scale=0.8
+        gBridge.angle=-1
+        this.groundContainer.add(gBridge);
+
+
 
         /**
          * De l'herbe en textures qui se répète
          * @type {Phaser.GameObjects.TileSprite}
          */
-        // let spike=this.add.tileSprite(0,370,gMid3.x+gMid3.width,50,'g-spike-1').setOrigin(0,1)
-        // this.groundContainer.add(grass);
+        //let spike=this.add.tileSprite(0,370,gMid3.x+gMid3.width,50,'g-spike-1').setOrigin(0,1)
+        //this.groundContainer.add(grass);
         /**
          * encore de l'herbe
          * @type {Phaser.GameObjects.TileSprite}
          */
-        // let spike2=this.add.tileSprite(0,370,gMid3.x+gMid3.width,50,'g-spike-2').setOrigin(0,1)
-        // this.groundContainer.add(grass2);
+        //let spike2=this.add.tileSprite(0,370,gMid3.x+gMid3.width,50,'g-spike-2').setOrigin(0,1)
+        //this.groundContainer.add(grass2);
         /**
          * filtre type film au premier plan
          * @type {Phaser.GameObjects.Sprite}
