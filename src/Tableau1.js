@@ -501,7 +501,7 @@ class Tableau1 extends Phaser.Scene{
         //définit à quelles vitesse se déplacent nos différents plans
         bgAnimationA.scrollFactorX=0;
         this.filterFilm.scrollFactorX=0;
-        this.bg2Container.scrollFactorX=1.2;
+        this.bg2Container.scrollFactorX=1.5;
         this.bg1Container.scrollFactorX=1.6;
         this.groundContainer.scrollFactorX=2;
     }
