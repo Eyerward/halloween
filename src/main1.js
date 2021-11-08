@@ -1,6 +1,6 @@
 let gameConfig = {
     type: Phaser.AUTO,
-    width: 960,
+    width: 2000,
     height: 540,
     backgroundColor: '#ffffff',
     parent: 'game',
