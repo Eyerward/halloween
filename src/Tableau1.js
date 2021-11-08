@@ -73,6 +73,17 @@ class Tableau1 extends Phaser.Scene{
         this.load.image('filterblood2', 'assets/level/filters/bloody/frame2.png');
         this.load.image('filterblood3', 'assets/level/filters/bloody/frame3.png');
 
+        this.load.image('rain1','assets/level/weather/rain/frame1.png');
+        this.load.image('rain2','assets/level/weather/rain/frame2.png');
+        this.load.image('rain3','assets/level/weather/rain/frame3.png');
+
+        this.load.image('snow1','assets/level/weather/snow/frame1.png');
+        this.load.image('snow2','assets/level/weather/snow/frame2.png');
+        this.load.image('snow3','assets/level/weather/snow/frame3.png');
+        this.load.image('snow4','assets/level/weather/snow/frame4.png');
+        this.load.image('snow5','assets/level/weather/snow/frame5.png');
+
+
 
         //texture au fond  TODO élève : faire une boucle pour charger les 3 images et démontrer par la même que vous savez aller au plus simple
         this.load.image('bg-animation-a', 'assets/level/background-2/bg-animation/bg-animation-a.png');
@@ -244,6 +255,10 @@ class Tableau1 extends Phaser.Scene{
          * L'eau est là c'est laaaaaaaaaaa joie
          */
 
+        let Z14=this.add.image(2500,300,'zombie14').setOrigin(0,0);
+        Z14.scale=3
+        this.groundContainer.add(Z14);
+
         let gWater=this.add.tileSprite(400,390,5000,300,'gWater').setOrigin(0,0);
         this.groundContainer.add(gWater);
 
@@ -360,6 +375,45 @@ class Tableau1 extends Phaser.Scene{
         this.groundContainer.add(gTree1t2);
 
         /**
+         * ZOMBIES ARE COMING
+         */
+        let Z6=this.add.image(600,285,'zombie6').setOrigin(0,0);
+        Z6.scale=0.4
+        this.groundContainer.add(Z6);
+
+        let Z1=this.add.image(300,230,'zombie1').setOrigin(0,0);
+        Z1.scale=0.8
+        this.groundContainer.add(Z1);
+
+        let Z2=this.add.image(800,230,'zombie2').setOrigin(0,0);
+        Z2.scale=0.8
+        this.groundContainer.add(Z2);
+
+        let Z3=this.add.image(900,230,'zombie3').setOrigin(0,0);
+        Z3.scale=0.8
+        this.groundContainer.add(Z3);
+
+        let Z4=this.add.image(1000,230,'zombie4').setOrigin(0,0);
+        Z4.scale=0.8
+        this.groundContainer.add(Z4);
+
+        let Z5=this.add.image(1200,230,'zombie5').setOrigin(0,0);
+        Z5.scale=0.8
+        this.groundContainer.add(Z5);
+
+        let Z10=this.add.image(1800,230,'zombie10').setOrigin(0,0);
+        Z10.scale=0.8
+        this.groundContainer.add(Z10);
+
+        let Z11=this.add.image(2200,230,'zombie11').setOrigin(0,0);
+        Z11.scale=0.8
+        this.groundContainer.add(Z11);
+
+        let Z12=this.add.image(2100,240,'zombie12').setOrigin(0,0);
+        Z12.scale=0.8
+        this.groundContainer.add(Z12);
+
+        /**
          * Cailloux, Caisses, Champis...
          */
 
@@ -378,8 +432,8 @@ class Tableau1 extends Phaser.Scene{
         gMush.flipX=true
         this.groundContainer.add(gMush);
 
-        let gMush2=this.add.image(1100,290,'gMush1').setOrigin(0,0);
-        gMush.scale=0.1
+        let gMush2=this.add.image(1100,330,'gMush1').setOrigin(0,0);
+        gMush2.scale=0.5
         this.groundContainer.add(gMush2);
 
         let gBridge=this.add.image(400,295,'gBridge').setOrigin(0,0);
@@ -411,13 +465,6 @@ class Tableau1 extends Phaser.Scene{
         this.groundContainer.add(gBigstone);
 
 
-        /**
-         * ZOMBIES ARE COMING
-         */
-        let Z6=this.add.image(600,270,'zombie6').setOrigin(0,0);
-        Z6.scale=0.5
-        Z6.angle=-3
-        this.groundContainer.add(Z6);
 
 
         /**
