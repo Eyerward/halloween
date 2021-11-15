@@ -79,9 +79,9 @@ class Tableau1 extends Phaser.Scene{
 
         this.load.image('snow1','assets/level/weather/snow/frame1.png');
         this.load.image('snow2','assets/level/weather/snow/frame2.png');
-        this.load.image('snow3','assets/level/weather/snow/frame3.png');
-        this.load.image('snow4','assets/level/weather/snow/frame4.png');
-        this.load.image('snow5','assets/level/weather/snow/frame5.png');
+        this.load.image('snow3','assets/level/weather/snow/frame-3.png');
+        this.load.image('snow4','assets/level/weather/snow/frame-4.png');
+        this.load.image('snow5','assets/level/weather/snow/frame-5.png');
 
 
 
@@ -262,10 +262,10 @@ class Tableau1 extends Phaser.Scene{
         let gWater=this.add.tileSprite(400,390,5000,300,'gWater').setOrigin(0,0);
         this.groundContainer.add(gWater);
 
-        let gSpike1=this.add.tileSprite(310,450,5000,90,'gSpike-1').setOrigin(0,0);
+        let gSpike1=this.add.tileSprite(310,450,3000,90,'gSpike-1').setOrigin(0,0);
         this.groundContainer.add(gSpike1);
 
-        let gSpike2=this.add.tileSprite(400,450,5000,90,'gSpike-2').setOrigin(0,0);
+        let gSpike2=this.add.tileSprite(400,450,3000,90,'gSpike-2').setOrigin(0,0);
         this.groundContainer.add(gSpike2);
 
         /**
@@ -486,6 +486,35 @@ class Tableau1 extends Phaser.Scene{
         });
         this.filterFilm.play('film');
 
+        this.filterRain= this.add.sprite(0, 0, 'filterFilm2').setOrigin(0,0);
+        this.anims.create({
+            key: 'rain',
+            frames: [
+                {key:'rain1'},
+                {key:'rain2'},
+                {key:'rain3'},
+            ],
+            frameRate:18,
+            repeat: -1
+        });
+        this.filterRain.play('rain')
+
+        this.filterSnow= this.add.sprite(0, 0, 'filterFilm3').setOrigin(0,0);
+        this.anims.create({
+            key: 'snow',
+            frames: [
+                {key:'snow1'},
+                {key:'snow2'},
+                {key:'snow3'},
+                {key:'snow4'},
+                {key:'snow5'},
+
+            ],
+            frameRate:10,
+            repeat: -1
+        });
+        this.filterSnow.play('snow')
+
         //TODO élève faire une animation du même genre que filter mais pour bgAnimationA
 
         //gestion du parallaxe
@@ -497,11 +526,15 @@ class Tableau1 extends Phaser.Scene{
         //initialise ce qui se passe avec le clavier
         this.initKeyboard();
         // Définit l'espace de déplacement de la caméra
-        this.cameras.main.setBounds(0, 0, 5000, 540);
+        this.cameras.main.setBounds(0, 0, 3000, 540);
         //définit à quelles vitesse se déplacent nos différents plans
         bgAnimationA.scrollFactorX=0;
         this.filterFilm.scrollFactorX=0;
-        this.bg2Container.scrollFactorX=1.5;
+        this.filterRain.scrollFactorX=0;
+        this.filterSnow.scrollFactorX=0;
+        this.filterSnow.visible=false;
+        this.filterRain.visible=false;
+        this.bg2Container.scrollFactorX=1.4;
         this.bg1Container.scrollFactorX=1.6;
         this.groundContainer.scrollFactorX=2;
     }
@@ -520,6 +553,19 @@ class Tableau1 extends Phaser.Scene{
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.LEFT:
                     me.speed=-1;
+                    break;
+
+                case Phaser.Input.Keyboard.KeyCodes.S:
+                    me.filterSnow.visible=false;
+                    me.filterRain.visible=false;
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.P:
+                    me.filterSnow.visible=false;
+                    me.filterRain.visible=true;
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.N:
+                    me.filterSnow.visible=true;
+                    me.filterRain.visible=false;
                     break;
             }
         });
