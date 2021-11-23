@@ -14,7 +14,7 @@ class Tableau1 extends Phaser.Scene{
         for(let b=1; b<=4;b++) {
             this.load.image('bg2-terrain-'+b, 'assets/level/background-2/bg2-terrain-'+b+'.png');
         }
-        for(let e=1; e<=4;e++) {
+        for(let e=1; e<=3;e++) {
             this.load.image('bg2-tree-' + e, 'assets/level/background-2/bg2-tree-' + e + '.png');
         }
 
@@ -30,9 +30,11 @@ class Tableau1 extends Phaser.Scene{
         for(let k=1;k<=5;k++) {
             this.load.image('bg1-stone-'+k, 'assets/level/background-1/bg-stone-'+k+'.png');
         }
-        for(let l=1;l<=5;l++) {
-            this.load.image('bg1-grass-'+l, 'assets/level/background-1/bg-grass-'+ l +'.png');
-        }
+
+        this.load.image('bg1-grass-1', 'assets/level/background-1/bg-grass-1.png');
+        this.load.image('bg1-grass-3', 'assets/level/background-1/bg-grass-3.png');
+        this.load.image('bg1-grass-4', 'assets/level/background-1/bg-grass-4.png');
+        this.load.image('bg1-grass-5', 'assets/level/background-1/bg-grass-5.png');
         this.load.image('bg-wooden-bridge','assets/level/background-1/bg-wooden-bridge.png');
         this.load.image('bg-fellentree','assets/level/background-1/bg-fellen-tree-2.png')
 
@@ -83,7 +85,18 @@ class Tableau1 extends Phaser.Scene{
         this.load.image('snow4','assets/level/weather/snow/frame-4.png');
         this.load.image('snow5','assets/level/weather/snow/frame-5.png');
 
+        //le garçon
 
+        for(let i=1;i<=10;i++) {
+            this.load.image('boyIdle'+i, 'Characters/boy/boy_style_1/PNG/idle/Layer-'+i+'.png');
+        }
+
+        for(let i=1;i<=8;i++) {
+            this.load.image('boyRun'+i, 'Characters/boy/boy_style_1/PNG/run/Layer-'+i+'.png)');
+
+            //http://localhost:63342/index.html/Characters/boy/boy_style_1/PNG/run/Layer-4.png)
+            //                                  Characters/boy/boy_style_1/PNG/run/Layer-1.png
+        }
 
         //texture au fond  TODO élève : faire une boucle pour charger les 3 images et démontrer par la même que vous savez aller au plus simple
         this.load.image('bg-animation-a', 'assets/level/background-2/bg-animation/bg-animation-a.png');
@@ -464,7 +477,33 @@ class Tableau1 extends Phaser.Scene{
         let gBigstone=this.add.image(2250,350,'gBigstone').setOrigin(0,0);
         this.groundContainer.add(gBigstone);
 
+        /**
+         * boucle de personnage
+         * @type {Phaser.GameObjects.Sprite}
+         */
 
+        let boyIdle1 = this.add.sprite(100, 140, 'boyIdle1').setOrigin(0,0);
+        this.anims.create({
+            key: 'boystand',
+            frames: this.getFrames("boyIdle", 10),
+            frameRate:16,
+            repeat: -1
+        });
+        boyIdle1.play('boystand');
+        boyIdle1.scale=0.6
+        this.groundContainer.add(boyIdle1);
+
+
+        let boyRun = this.add.sprite(100, 140, 'boyRun1').setOrigin(0,0);
+        this.anims.create({
+            key: 'Run',
+            frames: this.getFrames("boyRun", 10),
+            frameRate:16,
+            repeat: -1
+        });
+        boyRun.play('Run');
+        boyRun.scale=0.6
+        this.groundContainer.add(boyRun);
 
 
         /**
@@ -534,7 +573,7 @@ class Tableau1 extends Phaser.Scene{
         this.filterSnow.scrollFactorX=0;
         this.filterSnow.visible=false;
         this.filterRain.visible=false;
-        this.bg2Container.scrollFactorX=1.4;
+        this.bg2Container.scrollFactorX=1.3;
         this.bg1Container.scrollFactorX=1.6;
         this.groundContainer.scrollFactorX=2;
     }
@@ -542,6 +581,8 @@ class Tableau1 extends Phaser.Scene{
      * Définit ce qui se passe quand on appuie ou relache une touche du clavier
      * ALGO : ceci est une fonction ou méthode
      */
+
+
     initKeyboard(){
         let me=this;
         this.input.keyboard.on('keydown', function(kevent)
@@ -579,6 +620,20 @@ class Tableau1 extends Phaser.Scene{
                     break;
             }
         });
+    }
+
+    /**
+     * Renvoie un tableau d'images
+     * @param prefix
+     * @param length
+     * @returns {*[]}
+     */
+    getFrames(prefix,length){
+        let frames=[];
+        for (let i=1;i<=length;i++){
+            frames.push({key: prefix+i});
+        }
+        return frames;
     }
 
     /**
