@@ -92,11 +92,11 @@ class Tableau1 extends Phaser.Scene{
         }
 
         for(let i=1;i<=10;i++) {
-            this.load.image('boyIdleb'+i, 'Characters/boy/boy_style_1/PNG/idle2/Layer-'+i+'.png');
+            this.load.image('boyIdle'+(i+10), 'Characters/boy/boy_style_1/PNG/idle2/Layer-'+i+'.png');
         }
 
-        for(let i=1;i<=8;i++) {
-            this.load.image('boyRun'+i, 'Characters/boy/boy_style_1/PNG/run/Layer-'+i+'.png)');
+        for(let i=1;i<=6;i++) {
+            this.load.image('flyIdle'+i, 'Characters/enemy 2/PNG/idle/Layer-'+i+'.png');
 
         }
 
@@ -392,7 +392,7 @@ class Tableau1 extends Phaser.Scene{
         /**
          * ZOMBIES ARE COMING
          */
-        let Z6=this.add.image(600,285,'zombie6').setOrigin(0,0);
+        /**let Z6=this.add.image(600,285,'zombie6').setOrigin(0,0);
         Z6.scale=0.4
         this.groundContainer.add(Z6);
 
@@ -426,7 +426,7 @@ class Tableau1 extends Phaser.Scene{
 
         let Z12=this.add.image(2100,240,'zombie12').setOrigin(0,0);
         Z12.scale=0.8
-        this.groundContainer.add(Z12);
+        this.groundContainer.add(Z12);*/
 
         /**
          * Cailloux, Caisses, Champis...
@@ -484,10 +484,10 @@ class Tableau1 extends Phaser.Scene{
          * @type {Phaser.GameObjects.Sprite}
          */
 
-        let boyIdle1 = this.add.sprite(100, 140, 'boyIdle1').setOrigin(0,0);
+        let boyIdle1 = this.add.sprite(100, 140).setOrigin(0,0);
         this.anims.create({
             key: 'boystand',
-            frames: this.getFrames("boyIdle", 10),
+            frames: this.getFrames("boyIdle", 20),
             frameRate:16,
             repeat: -1
         });
@@ -496,16 +496,41 @@ class Tableau1 extends Phaser.Scene{
         this.groundContainer.add(boyIdle1);
 
 
-        let boyRun = this.add.sprite(200, 140, 'boyRun1').setOrigin(0,0);
+        let flyIdle = this.add.sprite(300, 0).setOrigin(0,0);
         this.anims.create({
-            key: 'Run',
-            frames: this.getFrames("boyRun", 10),
+            key: 'flyIdle',
+            frames: this.getFrames("flyIdle", 6),
             frameRate:16,
             repeat: -1
         });
-        boyRun.play('Run');
-        boyRun.scale=0.6
-        this.groundContainer.add(boyRun);
+        flyIdle.play('flyIdle');
+        flyIdle.scale=0.6
+        this.groundContainer.add(flyIdle);
+
+
+
+
+        let timeline = this.tweens.timeline({
+            loop : -1,
+
+            tweens: [
+                {
+                targets: flyIdle,
+                x: 600,
+                ease: 'Circ.easeOut',
+                duration: 10000
+                },
+
+                {
+                    targets: flyIdle,
+                    x: 100,
+                    ease: 'Circ.easeOut',
+                    duration: 10000
+                },
+                ]
+
+        });
+
 
 
         /**
