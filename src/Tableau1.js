@@ -91,11 +91,13 @@ class Tableau1 extends Phaser.Scene{
             this.load.image('boyIdle'+i, 'Characters/boy/boy_style_1/PNG/idle/Layer-'+i+'.png');
         }
 
+        for(let i=1;i<=10;i++) {
+            this.load.image('boyIdleb'+i, 'Characters/boy/boy_style_1/PNG/idle2/Layer-'+i+'.png');
+        }
+
         for(let i=1;i<=8;i++) {
             this.load.image('boyRun'+i, 'Characters/boy/boy_style_1/PNG/run/Layer-'+i+'.png)');
 
-            //http://localhost:63342/index.html/Characters/boy/boy_style_1/PNG/run/Layer-4.png)
-            //                                  Characters/boy/boy_style_1/PNG/run/Layer-1.png
         }
 
         //texture au fond  TODO élève : faire une boucle pour charger les 3 images et démontrer par la même que vous savez aller au plus simple
@@ -494,7 +496,7 @@ class Tableau1 extends Phaser.Scene{
         this.groundContainer.add(boyIdle1);
 
 
-        let boyRun = this.add.sprite(100, 140, 'boyRun1').setOrigin(0,0);
+        let boyRun = this.add.sprite(200, 140, 'boyRun1').setOrigin(0,0);
         this.anims.create({
             key: 'Run',
             frames: this.getFrames("boyRun", 10),
